@@ -1,0 +1,21 @@
+{
+    "name": {
+        "title": "this is english title",
+        "placeholder": "this is english placeholder"
+    },
+    "navbar": {
+        "home": "홈",
+        "about": "소개",
+        "contact": "문의하기",
+        "privacyPolicy": "개인정보 처리방침",
+        "buyChannel": "채널 구매",
+        "setting": "설정",
+        "profile": "프로필",
+        "startSelling": "판매 시작하기",
+        "logout": "로그아웃"
+    },
+    "aboutpage": {
+        "title": "About Page",
+        "description": "This is about page"
+    }
+}

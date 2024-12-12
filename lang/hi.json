@@ -1,0 +1,21 @@
+{
+    "name": {
+        "title": "this is english title",
+        "placeholder": "this is english placeholder"
+    },
+    "navbar": {
+        "home": "मुख्य पृष्ठ",
+        "about": "के बारे में",
+        "contact": "संपर्क करें",
+        "privacyPolicy": "गोपनीयता नीति",
+        "buyChannel": "चैनल खरीदें",
+        "setting": "सेटिंग",
+        "profile": "प्रोफ़ाइल",
+        "startSelling": "बेचना शुरू करें",
+        "logout": "लॉग आउट"
+    },
+    "aboutpage": {
+        "title": "About Page",
+        "description": "This is about page"
+    }
+}

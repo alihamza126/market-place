@@ -1,0 +1,116 @@
+const categories = [
+  "Cars & Bikes",
+  "Luxury & Motivation",
+  "Pets & Animals",
+  "Games",
+  "Movies & Music",
+  "Fashion & Style",
+  "Educational & QA",
+  "Food",
+  "Nature",
+  "Fitness & Sports",
+  "Travel",
+  "Beautiful girls",
+  "Humor",
+  "Models & Celebrities",
+  "Reviews & How to",
+  "Youtube shorts & Facebook reels",
+  "Crypto & NFT"
+];
+
+
+
+const socialMediaData = [
+    {
+        name: "TikTok",
+        description: "Buy and sell TikTok accounts to create and discover short videos with ease.",
+        color: "#000000",
+        icon: <FaTiktok size={120} />,
+    },
+    {
+        name: "Instagram",
+        description: "Acquire or sell Instagram accounts to share photos and videos with friends and followers.",
+        color: "#E1306C",
+        icon: <FaInstagram size={120} />,
+    },
+    // {
+    //     name: "Twitter",
+    //     description: "Buy and sell Twitter accounts to stay updated with the latest trends and discussions.",
+    //     color: "#1DA1F2",
+    //     icon: <FaTwitter size={120} />,
+    // },
+    {
+        name: "YouTube",
+        description: "Purchase and sell YouTube channels to watch, create, and share your favorite videos.",
+        color: "#FF0000",
+        icon: <FaYoutube size={120} />,
+    },
+    {
+        name: "Facebook",
+        description: "Connect with friends and communities by buying or selling Facebook pages.",
+        color: "#4267B2",
+        icon: <FaFacebook size={120} />,
+    },
+    // {
+    //     name: "Telegram",
+    //     description: "Securely chat and manage your business by buying or selling Telegram channels.",
+    //     color: "#0088CC",
+    //     icon: <FaTelegramPlane size={120} />,
+    // },
+];
+
+
+// export function SocialMediaAnimation() {
+//     const [currentIndex, setCurrentIndex] = useState(0);
+
+//     useEffect(() => {
+//         const interval = setInterval(() => {
+//             setCurrentIndex((prevIndex) =>
+//                 prevIndex === socialMediaData.length - 1 ? 0 : prevIndex + 1
+//             );
+//         }, 6000); // Change every 3 seconds
+//         return () => clearInterval(interval);
+//     }, []);
+
+//     const currentSocial = socialMediaData[currentIndex];
+
+//     return (
+//         <div className="flex items-center justify-center min-h-[350px] w-full">
+//             <AnimatePresence mode="wait">
+//                 <motion.div
+//                     key={currentIndex}
+//                     initial={{ opacity: 0, scale: 0.8 }}
+//                     animate={{ opacity: 1, scale: 1 }}
+//                     exit={{ opacity: 0, scale: 0.8 }}
+//                     transition={{ duration: 0.5 }}
+//                     className="relative w-full gap-1 p-4 bg-opacity-40 backdrop-blur-lg rounded-lg flex flex-col items-center justify-center"
+//                 >
+//                     {/* Social Media Icon */}
+//                     <motion.div
+//                         className="mb-2"
+//                         initial={{ opacity: 0, y: -20 }}
+//                         animate={{ opacity: 1, y: 0 }}
+//                         exit={{ opacity: 0, y: 20 }}
+//                         transition={{ duration: 0.5 }}
+//                         style={{ color: currentSocial.color }}
+//                     >
+//                         {currentSocial.icon}
+//                     </motion.div>
+
+//                     {/* Social Media Name */}
+//                     <h1
+//                         className="text-xl font-semibold"
+//                         style={{ color: currentSocial.color }}
+//                     >
+//                         {currentSocial.name}
+//                     </h1>
+
+//                     {/* Social Media Description */}
+//                     <p className="text-md text-gray-600 text-center mt-2">
+//                         {currentSocial.description}
+//                     </p>
+//                 </motion.div>
+//             </AnimatePresence>
+//         </div>
+//     );
+// }

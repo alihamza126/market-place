@@ -1,0 +1,21 @@
+{
+    "name": {
+        "title": "this is english title",
+        "placeholder": "this is english placeholder"
+    },
+    "navbar": {
+        "home": "Home",
+        "about": "About",
+        "contact": "Contact",
+        "privacyPolicy": "Privacy Policy",
+        "buyChannel": "Buy Channel",
+        "setting": "Setting",
+        "profile": "Profile",
+        "startSelling": "Start Selling",
+        "logout": "Logout"
+    },
+    "aboutpage": {
+        "title": "About Page",
+        "description": "This is about page"
+    }
+}
