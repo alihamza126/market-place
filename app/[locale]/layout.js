@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 import { NextuiProvider } from "@/provider/Nextui";
 import { Inter } from 'next/font/google'
 import NextTopLoader from "nextjs-toploader";
+import Footer from "@/components/footer/Footer";
 
 
 const inter = Inter({
@@ -25,19 +26,20 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang={locale}>
-      <body className={`${inter.variable}  font-inter `}>
+      <body className={`${inter.variable}  font-inter bg-background`}>
         <NextIntlClientProvider messages={messages}>
           <NextuiProvider>
             <NextTopLoader
               showSpinner={false}
               easing="ease"
               speed={500}
-              initialPosition={0.38}
+              initialPosition={0.28}
               crawl={true}
               height={4}
             />
             <Nav locale={locale} />
             {children}
+            <Footer locale={locale}/>
           </NextuiProvider>
         </NextIntlClientProvider>
       </body>

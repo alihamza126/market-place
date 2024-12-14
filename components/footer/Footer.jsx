@@ -1,10 +1,11 @@
-import {  Mail, Phone } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
+import Link from 'next/link';
 import React from 'react'
-import { FaFacebookF,FaYoutube,FaInstagram,FaTiktok,FaLinkedin } from "react-icons/fa6";
+import { FaFacebookF, FaYoutube, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa6";
 
-const Footer = () => {
+const Footer = ({ locale }) => {
     return (
-        <footer className="rounded-t-xl tracking-wide bg-[#27282b] py-12 px-14 mt-20">
+        <footer className="rounded-t-xl tracking-wide bg-[#27282b] py-12 px-14">
             <div className="grid max-md-grid-cols-1 lg:grid-cols-2 gap-20">
                 <div>
                     <h4 className="text-gray-100 font-bold text-lg">About Us</h4>
@@ -16,7 +17,7 @@ const Footer = () => {
                     <ul className="grid sm:grid-cols-2 mt-12 gap-2">
                         <li className="flex items-center max-sm:mb-8">
                             <div className="bg-[#343538] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                               <Phone size={20} color='white'/>
+                                <Phone size={20} color='white' />
                             </div>
                             <a href="javascript:void(0)" className="text-gray-100 text-sm ml-4">
                                 <small className="block">Tel</small>
@@ -25,7 +26,7 @@ const Footer = () => {
                         </li>
                         <li className="flex items-center">
                             <div className="bg-[#343538] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                                <Mail size={20} color='white'/>
+                                <Mail size={20} color='white' />
                             </div>
                             <a href="javascript:void(0)" className="text-gray-100 text-sm ml-4">
                                 <small className="block">Mail</small>
@@ -49,16 +50,16 @@ const Footer = () => {
 
                     <ul className="flex items-center justify-end mt-8 space-x-4">
                         <li className="bg-[#343538] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <FaFacebookF color='white'/>
+                            <FaFacebookF color='white' />
                         </li>
                         <li className="bg-[#343538] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                           <FaLinkedin color='white'/>
+                            <FaLinkedin color='white' />
                         </li>
                         <li className="bg-[#343538] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <FaYoutube color='white'/>
+                            <FaYoutube color='white' />
                         </li>
                         <li className="bg-[#343538] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                           <FaInstagram color='white'/>
+                            <FaInstagram color='white' />
                         </li>
                     </ul>
                 </div>
@@ -67,13 +68,10 @@ const Footer = () => {
             <div className="lg:flex lg:item-center mt-12">
                 <ul className="flex flex-wrap gap-4">
                     <li>
-                        <a href='javascript:void(0)' className='text-gray-300 hover:text-gray-100 text-sm'>Terms of Service</a>
+                        <Link href={`/${locale}/terms`} className='text-gray-300 hover:text-gray-100 text-sm'>Terms of Service</Link>
                     </li>
                     <li>
-                        <a href='javascript:void(0)' className='text-gray-300 hover:text-gray-100 text-sm'>Privacy Policy</a>
-                    </li>
-                    <li>
-                        <a href='javascript:void(0)' className='text-gray-300 hover:text-gray-100 text-sm'>Security</a>
+                        <Link href={`/${locale}/privacy-policy`} className='text-gray-300 hover:text-gray-100 text-sm'>Privacy Policy</Link>
                     </li>
                 </ul>
 

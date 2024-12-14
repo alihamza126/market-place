@@ -13,12 +13,12 @@ const page = async ({ params }) => {
   // const t = useTranslations("name")
   // console.log(params)
 
-  const { locale } = params;
+  const { locale } = await params;
 
 
   return (
     <div className="bg-background">
-      <Header />
+      <Header locale={locale} />
       <Featured locale={locale} />
       {/* -------user-development-------- */}
       <Categories locale={locale} />
@@ -31,7 +31,7 @@ const page = async ({ params }) => {
           {t("placeholder")}
         </h2> */}
         <Faqs/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   )
 }

@@ -40,8 +40,8 @@ export default function Faqs() {
     ];
 
     return (
-        <div className="px-28 py-10 bg-background">
-        <h2 className="text-center text-4xl py-5 text-primary">Frequently Asked Questions</h2>
+        <div className="px-5 md:px-28 py-5 md:py-10 bg-background pb-14">
+        <h2 className="text-center text-2xl font-semibold md:text-4xl py-5 text-primary-800">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible>
                 {faqs.map((ele, index) => (
                     <AccordionItem

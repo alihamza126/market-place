@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-
 import {
     Navbar,
     NavbarBrand,
@@ -14,16 +13,17 @@ import {
     Button,
     Dropdown,
     DropdownTrigger,
-    Avatar,
     DropdownMenu,
     DropdownItem,
 } from "@nextui-org/react";
+
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { FaAccessibleIcon } from "react-icons/fa";
 import { IoChevronDown } from "react-icons/io5";
-import { FaTiktok, FaTelegram, FaTwitter, FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
+import { FaTiktok,FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import LangTrigger from "./LangTrigger";
+import MyAvatar from "../ui/My-avatar";
 
 export const AcmeLogo = () => {
     return (
@@ -37,7 +37,10 @@ export const AcmeLogo = () => {
 };
 
 
+
+
 export function SocialMediaDropdown({ isClass = true, isFullWidth = false, variant = 'light', color = 'none' }) {
+    const t = useTranslations('navbar')
     return (
         <Dropdown>
             <NavbarItem>
@@ -52,7 +55,7 @@ export function SocialMediaDropdown({ isClass = true, isFullWidth = false, varia
                         color={color}
 
                     >
-                        Buy Channel
+                        {t('buyChannel')}
                     </Button>
                 </DropdownTrigger>
             </NavbarItem>
@@ -110,7 +113,7 @@ export default function Nav() {
     const pathname = usePathname()
     const locale = pathname.split('/')[1];
     const isActiveNav = pathname.split('/')[2];
-    const t=useTranslations('navbar')
+    const t = useTranslations('navbar')
 
     const menuItems = [
         t('home'),
@@ -121,6 +124,7 @@ export default function Nav() {
 
     return (
         <Navbar
+            maxWidth='xl'
             classNames={{
                 item: [
                     "flex",
@@ -155,12 +159,12 @@ export default function Nav() {
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 <NavbarItem isActive={isActiveNav == undefined ? true : false}>
                     <Link className="font-semibolsd  text-tblack" href={`/`}>
-                        Home
+                        {t('home')}
                     </Link>
                 </NavbarItem>
                 <NavbarItem isActive={isActiveNav === 'contact'}>
                     <Link className="font-semibsold text-tblack" href={`/${locale}/contact`}>
-                        Contact us
+                        {t('contact')}
                     </Link>
                 </NavbarItem>
                 {/* //by channel */}
@@ -173,12 +177,15 @@ export default function Nav() {
                     <Button as={Link} color="primary" href="#" variant="solid" radius="sm">
                         Sign Up
                     </Button> */}
-                    <Button
-                        className="ms-2 bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
-                        radius="sm"
-                    >
-                        Start Selling
-                    </Button>
+                    <Link href={`/${locale}/create`}>
+                        <Button
+                            className="ms-2 pointer-events-none bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                            radius="sm"
+                        >
+                            {t('startSelling')}
+                            
+                        </Button>
+                    </Link>
 
                 </NavbarItem>
             </NavbarContent>
@@ -209,20 +216,23 @@ export default function Nav() {
                 <NavbarMenuItem className="w-full font-bold capitalize rounded-md text-center text-medium">
                     <SocialMediaDropdown isClass={false} isFullWidth={true} variant="solid" color="primary" />
                 </NavbarMenuItem>
+                <LangTrigger />
             </NavbarMenu>
 
 
             {/* //Avatar start here */}
             <Dropdown placement="bottom-end">
                 <DropdownTrigger>
-                    <Avatar
+                    <MyAvatar
                         isBordered
                         as="button"
                         className="transition-transform"
                         color="secondary"
                         name="Jason Hughes"
                         size="sm"
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                        width={40}
+                        height={40}
+                        src={'/dummy/user.jpeg'}
                     />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -238,7 +248,9 @@ export default function Nav() {
                     </DropdownItem>
                 </DropdownMenu>
             </Dropdown>
-
+            <div>
+                <LangTrigger />
+            </div>
         </Navbar>
     );
 }

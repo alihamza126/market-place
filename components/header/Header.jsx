@@ -1,17 +1,39 @@
 "use client"
 import { Button, Input, Slider, Tooltip } from '@nextui-org/react';
-import React, { useState } from 'react';
-import { FaYoutube, FaFacebook, FaTelegramPlane, FaTiktok, FaTwitter, FaInfoCircle, FaSearch, FaInstagram } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import { FaYoutube, FaFacebook, FaTiktok, FaInfoCircle, FaSearch, FaInstagram } from "react-icons/fa";
 import { Select, SelectItem, Chip } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import Link from 'next/link';
+import { BsCheckAll } from "react-icons/bs";
 
 
 
-const Header = () => {
+const Header = ({ locale }) => {
     const [selected, setSelected] = useState("YouTube"); // Store the selected platform
     const [selectType, setSelectedType] = useState(""); // Store the selected platform
+    const [selectedCategory, setSelectedCategory] = useState([])
+    const [data, setData] = useState({
+        name: '',
+        status: '',
+        subscriber: [0, 1000],
+        price: [0, 1000],
+        income: [0, 1000],
+        selectedMedia: "",
+        selectType: "",
+        selectedCategory: [],
+    })
+    useEffect(() => {
+        setData((prev) => ({
+            ...prev, // Retain existing state
+            selectedMedia: selected, // Update `selectedMedia`
+            selectType: selectType, // Update `selectType`
+            selectedCategory: selectedCategory, // Update `selectedCategory`
+        }));
+    }, [selected, selectType, selectedCategory]);
+
 
 
     const isSelected = (platform) => selected === platform;
@@ -36,10 +58,18 @@ const Header = () => {
         { key: 16, label: "Crypto & NFT" }
     ];
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData((prev) => ({
+            ...prev, // Spread previous state
+            [name]: value, // Dynamically update the field based on `name`
+        }));
+        console.log(name, value)
+    };
 
 
     return (
-        <div className=' isolate relative h-full md:h-[91vh] bg-blend-saturatio bg-dbackground p-1 flex flex-col md:flex-row bg-no-repeat bg-cover]'>
+        <div className='w-full overflow-hidden isolate relative h-full md:h-[91vh] bg-blend-saturatio bg-dbackground p-1 flex flex-col md:flex-row bg-no-repeat bg-cover]'>
             <div className='h-full w-full md:w-2/5 p-5 mt-4 flex flex-col justify-center items-center'>
                 <span className="text-5xl px-10 font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-pink-500">
                     Connect, Buy, Sell
@@ -60,14 +90,25 @@ const Header = () => {
                     <Image src='/images/2.webp' className=' animate-appearance-in mix-blend-multiply h-full w-full aspect-auto' alt='hero' width={500} height={500} />
                 </motion.span>
             </div>
-
-
             <div
-
                 className='relative z-20 h-full w-full md:w-3/5  flex justify-center items-center'>
                 <div className='h-full w-full px-1 md:px-14 py-14 flex justify-center items-center  rounded'>
                     <form action="" className='w-max p-3 py-6 md:p-6 rounded-lg shadow flex flex-col gap-5 bg-black/5 backdrop-blur-0 justify-center'>
                         <div className="flex flex-wrap gap-3">
+                            {/* All Button */}
+                            <Button
+                                className={`${isSelected("all")
+                                    ? "bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-lg"
+                                    : "bg-gray-200 text-gray-800  border-primary border-2"
+                                    }`}
+                                radius="md"
+                                size='sm'
+                                aria-label='all'
+                                endContent={<BsCheckAll size={18} />}
+                                onClick={() => setSelected("all")}
+                            >
+                                All
+                            </Button>
                             {/* YouTube Button */}
                             <Button
                                 className={`${isSelected("YouTube")
@@ -112,20 +153,7 @@ const Header = () => {
                             </Button>
 
 
-                            {/* Telegram Button */}
-                            <Button
-                                className={`${isSelected("Telegram")
-                                    ? "bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-lg"
-                                    : "bg-gray-200 text-gray-800  border-primary border-2"
-                                    }`}
-                                radius="md"
-                                size='sm'
-                                aria-label='telegram'
-                                endContent={<FaTelegramPlane />}
-                                onClick={() => setSelected("Telegram")}
-                            >
-                                Telegram
-                            </Button>
+
 
                             {/* TikTok Button */}
                             <Button
@@ -141,25 +169,11 @@ const Header = () => {
                             >
                                 TikTok
                             </Button>
-
-                            {/* Twitter Button */}
-                            <Button
-                                className={`${isSelected("Twitter")
-                                    ? "bg-gradient-to-tr from-sky-400 to-sky-600 text-white shadow-lg"
-                                    : "bg-gray-200 text-gray-800 border-primary border-2"
-                                    }`}
-                                radius="md"
-                                size='sm'
-                                aria-label='twitter'
-                                endContent={<FaTwitter />}
-                                onClick={() => setSelected("Twitter")}
-                            >
-                                Twitter
-                            </Button>
                         </div>
+
                         {/* select subject  */}
                         <div className='flex flex-col gap-2'>
-                            <Input name="name" aria-label='search-name' className={{
+                            <Input name="name" value={data.name} onChange={handleChange} aria-label='search-name' className={{
                                 base: "py-3",
                             }} placeholder="Search by name" />
 
@@ -170,8 +184,20 @@ const Header = () => {
                                 }}
                                 isMultiline={true}
                                 items={options}
+
                                 aria-label='search-subject'
                                 placeholder="Select subjects"
+                                onSelectionChange={(keys) => {
+                                    const selectedOptions = Array.from(keys).map((key) => {
+                                        const res = options.find((option) => option.key == key);
+                                        if (res.label) {
+                                            return res.label;
+                                        }
+                                    }
+                                    );
+
+                                    setSelectedCategory(selectedOptions)
+                                }}
                                 renderValue={(items) => {
                                     return (
                                         <div className="flex flex-wrap gap-2">
@@ -195,6 +221,7 @@ const Header = () => {
                             </Select>
 
                         </div>
+
                         {/* verify listning */}
                         <div className="flex flex-wrap gap-4">
                             <Button
@@ -235,6 +262,8 @@ const Header = () => {
                                 Monetize Available
                             </Button>
                         </div>
+
+
                         {/* Ranges */}
                         <div className='flex flex-wrap gap-3 mt-1 px-3'>
                             <Slider
@@ -278,7 +307,15 @@ const Header = () => {
                                 )}
                                 size="md"
                                 step={1}
+                                onChangeEnd={(val) => {
+                                    setData((prev) => ({
+                                        ...prev, // Spread previous state
+                                        ['subscriber']: val, // Dynamically update the field based on `name`
+                                    }));
+                                }}
+
                             />
+
                             {/* price ranger */}
                             <Slider
                                 classNames={{
@@ -319,6 +356,12 @@ const Header = () => {
                                         />
                                     </div>
                                 )}
+                                onChangeEnd={(val) => {
+                                    setData((prev) => ({
+                                        ...prev, // Spread previous state
+                                        ['price']: val, // Dynamically update the field based on `name`
+                                    }));
+                                }}
                                 size="md"
                                 step={1}
                             />
@@ -364,19 +407,32 @@ const Header = () => {
                                 )}
                                 size="md"
                                 step={1}
+                                onChangeEnd={(val) => {
+                                    setData((prev) => ({
+                                        ...prev, // Spread previous state
+                                        ['income']: val, // Dynamically update the field based on `name`
+                                    }));
+                                }}
                             />
                         </div>
                         <div className='px-3 mt-2'>
-                            <Button color="primary" variant="solid" fullWidth isLosading endContent={<FaSearch />}>
-                                Search
-                            </Button>
+                            <Link
+                                href={{
+                                    pathname: `/${locale}/category/${selected.toLowerCase()}`,
+                                    query: { data: JSON.stringify(data) },
+                                }}
+                            >
+                                <Button color="primary" className=' pointer-events-none' variant="solid" fullWidth isLosading endContent={<FaSearch />}>
+                                    Search
+                                </Button>
+                            </Link>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div className="absolute left-1/5 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">
-                <div className="aspect-[1155/678] w-[70.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20" style={{clipPath:"polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"}}></div>
+            <div className=" overflow-hidden absolute left-1/5 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">
+                <div className="aspect-[1155/678] w-[70.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20" style={{ clipPath: "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" }}></div>
             </div>
         </div>
     );
